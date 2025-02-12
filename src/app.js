@@ -40,10 +40,5 @@ const {getPokemonById} = require('./js-foundation/06-promises');
 //Opcion 3 - promises
 getPokemonById(3)
     .then((pokemon) => { console.log({pokemon}); })
-    .catch((err) => console.log(err));
-
-
-
-
-
-
+    .catch((err) => console.log(err))
+    .finally(() => console.log('Proceso finalizado'));
