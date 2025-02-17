@@ -24,6 +24,7 @@
   "dependencies": {
     "axios": "^1.7.9",
     "get-age": "^1.0.1",
-    "uuid": "^11.0.5"
+    "uuid": "^11.0.5",
+    "winston": "^3.17.0"
   }
 }

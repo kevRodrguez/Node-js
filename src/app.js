@@ -30,7 +30,7 @@
 
 
 // 06 PROMISES
-const {getPokemonById} = require('./js-foundation/06-promises');
+// const {getPokemonById} = require('./js-foundation/06-promises');
 
 //Opcion 2 - promises
 // getPokemonById(4, (pokemon) => {
@@ -38,7 +38,15 @@ const {getPokemonById} = require('./js-foundation/06-promises');
 // });
 
 //Opcion 3 - promises
-getPokemonById(3)
-    .then((pokemon) => { console.log({pokemon}); })
-    .catch((err) => console.log(err))
-    .finally(() => console.log('Proceso finalizado'));
+// getPokemonById(3)
+//     .then((pokemon) => { console.log({pokemon}); })
+//     .catch((err) => console.log(err))
+//     .finally(() => console.log('Proceso finalizado'));
+
+
+//07 Winston
+const {buildLogger} = require('./plugins');
+const logger = buildLogger('app');
+logger.log('Hola mundo');
+logger.error('Error en la aplicacion');
+
