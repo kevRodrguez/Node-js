@@ -7,5 +7,6 @@ import { ServerApp } from "./presentation/server";
 
 function main () {
     ServerApp.start();
+    console.log('Server started');
 }
 
