@@ -1,12 +1,11 @@
 import { ServerApp } from "./presentation/server";
 
 //esta es una funcion anonima autoejecutable
-(async() => {
+(async () => {
     main();
 })();
 
-function main () {
+function main() {
     ServerApp.start();
-    console.log('Server started');
 }
 

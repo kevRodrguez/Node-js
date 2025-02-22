@@ -16,5 +16,8 @@
     "rimraf": "^5.0.10",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "cron": "^4.0.0"
   }
 }
