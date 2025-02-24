@@ -9,11 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const server_1 = require("./presentation/server");
 //esta es una funcion anonima autoejecutable
 (() => __awaiter(void 0, void 0, void 0, function* () {
     main();
 }))();
 function main() {
-    server_1.ServerApp.start();
+    // ServerApp.start();
 }

@@ -1,5 +1,15 @@
 import { CronService } from "./cron/cron-service";
 import { CheckService } from '../domain/use-cases/checks/check-service';
+import { LogRepositoryImpl } from "../infraestructure/repositories/log-impl.repository";
+import { FileSystemDataSource } from "../infraestructure/datasources/file-system.datasource";
+
+const fileSystemLogRepository = new LogRepositoryImpl(
+    //aca podemos ver que cualquier data source que implemente la interfaz LogDataSource puede ser usada
+
+    new FileSystemDataSource(),
+    // new postgresSQLLogDatasource(),
+    // new mongoDBLogDatasource()
+);
 
 export class ServerApp {
     public static start() {
@@ -17,9 +27,10 @@ export class ServerApp {
         CronService.createJob(
             '*/10 * * * * *',
             () => {
-                const url = 'https://www.google.com';
+                const url = 'http://localhost:3000';
                 
                 new CheckService(
+                    fileSystemLogRepository,
                     () => {
                         const date = new Date();
                         console.log(`${url} is ok at: ${date}`);
