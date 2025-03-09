@@ -1,6 +1,6 @@
 # 05-NOC
 
-Implementación de proyecto con arquitectura limpia y patrón repositorio.
+**Implementación de proyecto con arquitectura limpia y patrón repositorio.**
 
 
 # dev
@@ -16,3 +16,5 @@ MAILER_SECRET_KEY=
 PROD=false
 ```
 
+3. Ejecutar el comando ``` npm install ```
+4. Ejecutar ``` npm run dev ```
