@@ -6,13 +6,21 @@ import { EmailService } from "./email/email.service";
 import { Attachment } from "nodemailer/lib/mailer";
 import { SendEmailLogs } from "../domain/use-cases/email/send-email-logs";
 import { MongoLogDatasource } from "../infraestructure/datasources/mongo-log.datasource";
+import { PostgresLogDatasource } from "../infraestructure/datasources/postgres-log.datasource";
+import { LogSeverityLevel } from "../domain/entities/log.entity";
+import { CheckServiceMultiple } from "../domain/use-cases/checks/check-service-multiple";
 
-const LogRepository = new LogRepositoryImpl(
+const fsLogRepository = new LogRepositoryImpl(
     //aca podemos ver que cualquier data source que implemente la interfaz LogDataSource puede ser usada
+    new FileSystemDataSource(),
+);
 
-    // new FileSystemDataSource(),
-    new MongoLogDatasource(),
-    // new postgresSQLLogDatasource(),
+const mongoLogRepository = new LogRepositoryImpl(
+    new MongoLogDatasource()
+);
+
+const postgresLogRepository = new LogRepositoryImpl(
+    new PostgresLogDatasource()
 );
 
 const emailService = new EmailService();
@@ -28,13 +36,16 @@ export class ServerApp {
             () => {
                 const url = 'http://google.com';
 
-                new CheckService(
-                    LogRepository,
+                new CheckServiceMultiple(
+                    [fsLogRepository,
+                    mongoLogRepository,
+                    postgresLogRepository],
+                    
                     () => {
                         const date = new Date();
                         console.log(`${url} is ok at: ${date}`);
                     },
-                    (error) => {
+                    (error) => { 
                         console.log(`Check service error: ${error}`);
                     }
                 ).execute(url);
@@ -42,6 +53,11 @@ export class ServerApp {
 
             }
         );
+
+        //tomar lgos de la base de datos
+        // LogRepository.getLogs(LogSeverityLevel.high).then(logs => {
+        //     console.log('Logs: ', logs);
+        // });
 
 
         //Mandar email

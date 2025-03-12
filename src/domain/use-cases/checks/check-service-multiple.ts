@@ -12,15 +12,21 @@ type ErrorCallback = (error: string) => void;
 
 
 //usando implements se obliga a que la clase que implemente esta interfaz tenga los metodos de ella
-export class CheckService implements CheckServiceUseCase {
+export class CheckServiceMultiple implements CheckServiceUseCase {
 
     constructor(
         //esto es igual a definir el atributo e iniciarlo en el constructor
 
-        private readonly logRepository: LogRepository,
+        private readonly logRepository: LogRepository[],
         private readonly successCallback: SucessCallback,
         private readonly errorCallback: ErrorCallback
     ) { }
+
+    private callLogs(log: LogEntity) {
+        this.logRepository.forEach(logRepository => {
+            logRepository.saveLog(log);
+        });
+    }
 
     async execute(url: string): Promise<boolean> {
         try {
@@ -35,7 +41,7 @@ export class CheckService implements CheckServiceUseCase {
                 level: LogSeverityLevel.low,
                 origin: 'check-service'
             });
-            this.logRepository.saveLog(log);
+            this.callLogs(log);
 
 
             this.successCallback();
@@ -48,7 +54,7 @@ export class CheckService implements CheckServiceUseCase {
                 level: LogSeverityLevel.high,
                 origin: 'check-service'
             });
-            this.logRepository.saveLog(log);
+            this.callLogs(log);
 
             this.errorCallback(errorMessage);
             return false;
