@@ -8,8 +8,12 @@ export class TodoRoutes {
         const todosController = new TodosController();
 
         //* Asegurar que los métodos están bien referenciados
-        router.get('/', (req, res) => todosController.getTodos(req, res));
-        router.get('/:id', todosController.getTodoById);
+        router.get('/', (req, res) => {
+            todosController.getTodos(req, res);
+        }); 
+        router.get('/:id', (req, res) => {
+            todosController.getTodoById(req, res);
+        });
 
         router.post('/', todosController.createTodo);
         router.put('/:id', todosController.updateTodo);
