@@ -39,7 +39,7 @@ export class CategoryService {
 
 
 
-        try {
+        try { 
 
             const [total, categories] = await Promise.all([
                 CategoryModel.countDocuments(),
