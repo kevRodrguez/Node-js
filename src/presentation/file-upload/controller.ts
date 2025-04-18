@@ -26,9 +26,17 @@ export class FileUploadController {
 
 
   uploadFile = ( req: Request, res: Response ) => {
-    console.log({files: req.files})
+
+    const type = req.params.type;
+    const validTypes = ['users', 'products', 'categories']
+
+    if (!validTypes.includes(type)){
+      return res.status(400).json({error: `invalid type: ${type}, valid ones: ${validTypes}`})
+    }
 
     const files = req.files;
+
+    
 
     //para evaluar si hay un objeto
     if(!files || Object.keys(files).length === 0){
@@ -37,7 +45,7 @@ export class FileUploadController {
 
     const file = files.file as UploadedFile
 
-    this.fileUploadService.uploadSingle(file)
+    this.fileUploadService.uploadSingle(file, `uploads/${type}`)
       .then(uploaded => res.json(uploaded))
       .catch(error => this.handleError(error, res));
   
