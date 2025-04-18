@@ -21,7 +21,6 @@ export class FileUploadRoutes {
 
     
     router.use(FileUploadMiddleware.containFiles);
-    // router.use(TypeMiddleware.validTypes(['users', 'products', 'categories']));
     // Definir las rutas
 
     //api/upload/single/<user/category/product>
